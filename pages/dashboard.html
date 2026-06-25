@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard | AssetFlow</title>
+
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="logo">
+        <i class="fas fa-cube"></i>
+        <span>AssetFlow</span>
+    </div>
+
+    <ul class="menu">
+
+        <li><a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+
+        <li class="menu-title">Data Master</li>
+        <li><a href="assets.html">Assets</a></li>
+        <li><a href="categories.html">Categories</a></li>
+        <li><a href="locations.html">Locations</a></li>
+        <li><a href="suppliers.html">Suppliers</a></li>
+        <li><a href="users.html">Users</a></li>
+
+        <li class="menu-title">Transactions</li>
+        <li><a href="borrowings.html">Borrowings</a></li>
+        <li><a href="returns.html">Returns</a></li>
+        <li><a href="maintenance.html">Maintenance</a></li>
+
+        <li class="menu-title">Reports</li>
+        <li><a href="report.html">Reports</a></li>
+
+        <li><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+
+    </ul>
+
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+    <!-- HEADER -->
+    <section class="page-header">
+        <h2>Asset Overview</h2>
+        <button class="btn-custom">Generate Report</button>
+    </section>
+
+    <!-- KPI CARDS -->
+    <section class="cards">
+
+        <div class="card-neu">
+            <h6>Total Assets</h6>
+            <h3>1,284</h3>
+        </div>
+
+        <div class="card-neu">
+            <h6>Borrowed Assets</h6>
+            <h3>342</h3>
+        </div>
+
+        <div class="card-neu">
+            <h6>Maintenance</h6>
+            <h3>45</h3>
+        </div>
+
+        <div class="card-neu">
+            <h6>Damaged Assets</h6>
+            <h3>12</h3>
+        </div>
+
+    </section>
+
+    <!-- CHART -->
+    <section class="charts">
+
+        <div class="chart-card large-chart">
+            <canvas id="inventoryTrendChart"></canvas>
+        </div>
+
+        <div class="chart-card small-chart">
+            <canvas id="assetConditionChart"></canvas>
+        </div>
+
+    </section>
+
+    <!-- TABLE -->
+    <section class="table-card">
+
+        <h5>Recent Activities</h5>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Asset</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Laptop Dell</td>
+                    <td>IT Equipment</td>
+                    <td>Available</td>
+                    <td>12-Jun-2026</td>
+                </tr>
+
+                <tr>
+                    <td>Projector Epson</td>
+                    <td>Electronics</td>
+                    <td>Borrowed</td>
+                    <td>10-Jun-2026</td>
+                </tr>
+
+                <tr>
+                    <td>Office Chair</td>
+                    <td>Furniture</td>
+                    <td>Maintenance</td>
+                    <td>08-Jun-2026</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </section>
+
+</main>
+
+</div>
+
+<!-- CHART JS SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // BAR CHART
+    new Chart(document.getElementById('inventoryTrendChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Assets',
+                data: [120, 150, 130, 170, 180, 160],
+                backgroundColor: '#5E81F4',
+                borderRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // DOUGHNUT CHART
+    new Chart(document.getElementById('assetConditionChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Good', 'Fair', 'Poor', 'Damaged'],
+            datasets: [{
+                data: [824, 210, 120, 12],
+                backgroundColor: [
+                    '#2E86DE',
+                    '#74B9FF',
+                    '#E17055',
+                    '#D63031'
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+
+});
+</script>
+
+</body>
+</html>

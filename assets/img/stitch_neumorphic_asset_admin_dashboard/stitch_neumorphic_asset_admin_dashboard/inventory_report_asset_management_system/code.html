@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AssetMaster - Inventory Report</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-container-high": "#e4e9f0",
+                        "primary": "#0f4361",
+                        "on-primary-fixed": "#001e2f",
+                        "surface-container-low": "#eff4fb",
+                        "primary-container": "#2d5b7a",
+                        "on-surface": "#171c21",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f6f9ff",
+                        "on-secondary-container": "#006f7a",
+                        "surface-tint": "#356382",
+                        "on-primary-container": "#a5d2f6",
+                        "tertiary-fixed": "#ffddb7",
+                        "on-surface-variant": "#41474d",
+                        "inverse-on-surface": "#ecf1f8",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#dee3ea",
+                        "primary-fixed-dim": "#9fccf0",
+                        "on-tertiary-fixed-variant": "#633f0a",
+                        "surface-bright": "#f6f9ff",
+                        "tertiary-fixed-dim": "#f1bd7e",
+                        "on-secondary-fixed": "#001f23",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#9bf0fd",
+                        "tertiary": "#5a3803",
+                        "surface-dim": "#d5dae1",
+                        "on-tertiary-container": "#f8c383",
+                        "on-secondary-fixed-variant": "#004f57",
+                        "secondary-fixed-dim": "#7fd3e0",
+                        "secondary-fixed": "#9bf0fd",
+                        "surface-variant": "#dee3ea",
+                        "secondary": "#006973",
+                        "on-primary-fixed-variant": "#194b69",
+                        "inverse-surface": "#2b3136",
+                        "surface-container": "#e9eef5",
+                        "primary-fixed": "#cae6ff",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#754f1a",
+                        "outline-variant": "#c1c7ce",
+                        "inverse-primary": "#9fccf0",
+                        "on-background": "#171c21",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#72787e",
+                        "background": "#f6f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "md": "24px",
+                        "margin-desktop": "32px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .neumorphic-convex {
+            box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 1);
+        }
+        .neumorphic-inset {
+            box-shadow: inset 4px 4px 6px rgba(163, 177, 198, 0.4), inset -4px -4px 6px rgba(255, 255, 255, 1);
+        }
+        .neumorphic-button:active {
+            box-shadow: inset 4px 4px 6px rgba(163, 177, 198, 0.4), inset -4px -4px 6px rgba(255, 255, 255, 1);
+            transform: scale(0.98);
+        }
+        body {
+            background-color: #f6f9ff;
+            color: #171c21;
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+<!-- Predicted SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-md z-50 overflow-y-auto bg-surface h-screen w-64 rounded-r-xl shadow-[9px_9px_16px_rgba(163,177,198,0.6),-9px_-9px_16px_rgba(255,255,255,1)] hidden md:flex">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg neumorphic-convex flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">AssetMaster</h1>
+<p class="font-label-sm text-label-sm text-outline">Enterprise Edition</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active state determined as Assets for this report page context -->
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 mx-2 my-1 hover:bg-surface-container-low transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 bg-surface shadow-[inset_4px_4px_6px_rgba(163,177,198,0.4),inset_-4px_-4px_6px_rgba(255,255,255,1)] text-primary rounded-lg mx-2 my-1 px-4 py-3" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-md text-label-md font-bold">Assets</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 mx-2 my-1 hover:bg-surface-container-low transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="font-label-md text-label-md">Categories</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 mx-2 my-1 hover:bg-surface-container-low transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-label-md text-label-md">Locations</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 mx-2 my-1 hover:bg-surface-container-low transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">handshake</span>
+<span class="font-label-md text-label-md">Borrowings</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 mx-2 my-1 hover:bg-surface-container-low transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">keyboard_return</span>
+<span class="font-label-md text-label-md">Returns</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 mx-2 my-1 hover:bg-surface-container-low transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">build</span>
+<span class="font-label-md text-label-md">Maintenance</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant/20">
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 mx-2 my-1 hover:bg-surface-container-low transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Help</span>
+</a>
+<a class="flex items-center gap-3 text-error px-4 py-3 mx-2 my-1 hover:bg-surface-container-low transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 min-h-screen">
+<!-- Predicted TopNavBar -->
+<header class="flex justify-between items-center w-full px-margin-desktop sticky top-0 z-40 bg-surface h-20 shadow-[9px_9px_16px_rgba(163,177,198,0.6),-9px_-9px_16px_rgba(255,255,255,1)]">
+<div class="flex items-center gap-6">
+<div class="w-96 h-12 neumorphic-inset rounded-full flex items-center px-4">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-label-md text-label-md placeholder:text-outline-variant" placeholder="Search inventory reports..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 neumorphic-convex rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 neumorphic-convex rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-10 w-px bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="font-label-md text-label-md font-bold text-primary">Alex Jenkins</p>
+<p class="font-label-sm text-label-sm text-outline">Admin</p>
+</div>
+<div class="w-10 h-10 rounded-full neumorphic-convex border-2 border-white overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl4nh_muKUJkSoeRLeVf0dqVUcS44dteqnViB6yDVtdTdfUitwxbWQyH3SWo_-LloI5KB8S9iFr5f7ZBs65Z9udhvFDcAqoxYfHqEpcb3QX5gOnGbV7VGVnYjIxi7P6TVV6iyIgOT1DX97SDprw_ZoNhfGALzzTKcfpnHk5gMySNtlSpYkj2H5HfXdSj-fHQSHXqUs6UaaK4wGJXn2-5v_XEi-5mZ9KWXko-tGY3f-3lm8jUhYLfb7pYQvJX5s6ON4ZibJBfX5vcIs"/>
+</div>
+</div>
+</div>
+</header>
+<div class="p-margin-desktop space-y-gutter">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-primary">Inventory Report</h2>
+<p class="font-body-md text-body-md text-outline">Detailed analytical overview of all organizational assets.</p>
+</div>
+<div class="flex gap-4">
+<button class="neumorphic-convex neumorphic-button px-6 py-2 rounded-xl flex items-center gap-2 text-primary font-label-md text-label-md transition-all">
+<span class="material-symbols-outlined text-[20px]">print</span>
+                        Print Report
+                    </button>
+<button class="bg-primary text-on-primary px-8 py-2 rounded-xl flex items-center gap-2 font-label-md text-label-md shadow-lg hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+                        Generate Report
+                    </button>
+</div>
+</div>
+<!-- Report Filters Card -->
+<section class="neumorphic-convex rounded-xl p-md bg-surface">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">filter_list</span>
+<h3 class="font-headline-md text-headline-md font-bold text-primary">Report Filters</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-outline-variant px-1">Category</label>
+<div class="neumorphic-inset rounded-lg p-1">
+<select class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md py-2 px-2">
+<option>All Categories</option>
+<option>IT Hardware</option>
+<option>Office Furniture</option>
+<option>Company Vehicles</option>
+</select>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-outline-variant px-1">Location</label>
+<div class="neumorphic-inset rounded-lg p-1">
+<select class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md py-2 px-2">
+<option>All Locations</option>
+<option>HQ - San Francisco</option>
+<option>Branch - New York</option>
+<option>Warehouse A</option>
+</select>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-outline-variant px-1">Date Range</label>
+<div class="neumorphic-inset rounded-lg p-1 flex items-center">
+<span class="material-symbols-outlined text-outline-variant px-2">calendar_today</span>
+<input class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md py-2" type="text" value="Oct 2023 - Oct 2024"/>
+</div>
+</div>
+<div class="flex items-end">
+<button class="w-full neumorphic-convex neumorphic-button py-3 rounded-lg text-primary font-label-md text-label-md font-bold">
+                            Apply Filters
+                        </button>
+</div>
+</div>
+</section>
+<!-- Summary Section -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Total Assets -->
+<div class="neumorphic-convex rounded-xl p-md bg-surface flex flex-col justify-between min-h-[160px]">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-lg neumorphic-inset flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]">inventory</span>
+</div>
+<span class="text-secondary font-label-sm text-label-sm font-bold">+12%</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-outline">Total Assets</p>
+<h4 class="font-display-lg text-[32px] leading-tight font-extrabold text-primary">1,482</h4>
+</div>
+</div>
+<!-- Total Asset Value -->
+<div class="neumorphic-convex rounded-xl p-md bg-surface flex flex-col justify-between min-h-[160px]">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-lg neumorphic-inset flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]">payments</span>
+</div>
+<span class="text-secondary font-label-sm text-label-sm font-bold">+5.2%</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-outline">Total Asset Value</p>
+<h4 class="font-display-lg text-[32px] leading-tight font-extrabold text-primary">$2.84M</h4>
+</div>
+</div>
+<!-- Borrowed Assets -->
+<div class="neumorphic-convex rounded-xl p-md bg-surface flex flex-col justify-between min-h-[160px]">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-lg neumorphic-inset flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[28px]">assignment_return</span>
+</div>
+<span class="text-error font-label-sm text-label-sm font-bold">-2%</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-outline">Borrowed Assets</p>
+<h4 class="font-display-lg text-[32px] leading-tight font-extrabold text-primary">312</h4>
+</div>
+</div>
+<!-- Damaged Assets -->
+<div class="neumorphic-convex rounded-xl p-md bg-surface flex flex-col justify-between min-h-[160px]">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-lg neumorphic-inset flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[28px]">report_problem</span>
+</div>
+<span class="text-error font-label-sm text-label-sm font-bold">+0.4%</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-outline">Damaged Assets</p>
+<h4 class="font-display-lg text-[32px] leading-tight font-extrabold text-primary">14</h4>
+</div>
+</div>
+</section>
+<!-- Charts Section -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Asset Distribution -->
+<div class="neumorphic-convex rounded-xl p-md bg-surface">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md font-bold text-primary">Asset Distribution by Category</h3>
+<button class="w-8 h-8 neumorphic-convex rounded-full flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+<div class="h-64 w-full flex items-center justify-center relative">
+<!-- Abstract Visual Placeholder for Chart -->
+<div class="w-48 h-48 rounded-full neumorphic-convex border-[16px] border-surface-container flex items-center justify-center">
+<div class="text-center">
+<p class="font-display-lg text-primary text-[28px] font-bold">1,482</p>
+<p class="font-label-sm text-outline uppercase tracking-wider">Total</p>
+</div>
+</div>
+<!-- Legend Simulation -->
+<div class="absolute right-0 top-1/2 -translate-y-1/2 space-y-3">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="font-label-md text-label-md text-on-surface">IT Hardware (45%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="font-label-md text-label-md text-on-surface">Furniture (30%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-label-md text-label-md text-on-surface">Vehicles (15%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-outline-variant"></span>
+<span class="font-label-md text-label-md text-on-surface">Others (10%)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Condition Statistics -->
+<div class="neumorphic-convex rounded-xl p-md bg-surface">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md font-bold text-primary">Asset Condition Statistics</h3>
+<button class="w-8 h-8 neumorphic-convex rounded-full flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+<div class="h-64 w-full flex items-end justify-between px-8 gap-6">
+<!-- Bar Chart Simulation -->
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-full bg-primary rounded-t-lg shadow-inner" style="height: 85%;"></div>
+<span class="font-label-sm text-label-sm text-outline">Excellent</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-full bg-secondary rounded-t-lg shadow-inner" style="height: 45%;"></div>
+<span class="font-label-sm text-label-sm text-outline">Good</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-full bg-tertiary-container rounded-t-lg shadow-inner" style="height: 25%;"></div>
+<span class="font-label-sm text-label-sm text-outline">Fair</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1">
+<div class="w-full bg-error rounded-t-lg shadow-inner" style="height: 10%;"></div>
+<span class="font-label-sm text-label-sm text-outline">Poor</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Report Table Card -->
+<section class="neumorphic-convex rounded-xl bg-surface overflow-hidden">
+<div class="p-md border-b border-outline-variant/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<h3 class="font-headline-md text-headline-md font-bold text-primary">Detailed Asset Inventory</h3>
+<div class="flex gap-3">
+<button class="neumorphic-convex neumorphic-button p-2 rounded-lg text-on-surface-variant hover:text-primary transition-all flex items-center gap-2 px-3">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+<span class="font-label-md text-label-md">PDF</span>
+</button>
+<button class="neumorphic-convex neumorphic-button p-2 rounded-lg text-on-surface-variant hover:text-primary transition-all flex items-center gap-2 px-3">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span class="font-label-md text-label-md">Excel</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="p-4 font-label-md text-label-md text-primary font-bold">Asset Code</th>
+<th class="p-4 font-label-md text-label-md text-primary font-bold">Asset Name</th>
+<th class="p-4 font-label-md text-label-md text-primary font-bold">Category</th>
+<th class="p-4 font-label-md text-label-md text-primary font-bold">Location</th>
+<th class="p-4 font-label-md text-label-md text-primary font-bold">Condition</th>
+<th class="p-4 font-label-md text-label-md text-primary font-bold">Value</th>
+<th class="p-4 font-label-md text-label-md text-primary font-bold">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="p-4 font-body-md text-body-md text-on-surface">#AS-10293</td>
+<td class="p-4 font-body-md text-body-md font-semibold text-primary">MacBook Pro 16" M2</td>
+<td class="p-4">
+<span class="px-3 py-1 rounded-full bg-primary-container/10 text-primary font-label-sm text-label-sm">IT Hardware</span>
+</td>
+<td class="p-4 font-body-md text-body-md text-outline">HQ - Floor 4</td>
+<td class="p-4">
+<span class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">fiber_manual_record</span>
+<span class="font-label-md text-label-md">Excellent</span>
+</span>
+</td>
+<td class="p-4 font-body-md text-body-md font-bold text-primary">$2,499.00</td>
+<td class="p-4">
+<button class="w-8 h-8 rounded-lg neumorphic-convex flex items-center justify-center text-outline group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="p-4 font-body-md text-body-md text-on-surface">#AS-10294</td>
+<td class="p-4 font-body-md text-body-md font-semibold text-primary">Dell Latitude 5430</td>
+<td class="p-4">
+<span class="px-3 py-1 rounded-full bg-primary-container/10 text-primary font-label-sm text-label-sm">IT Hardware</span>
+</td>
+<td class="p-4 font-body-md text-body-md text-outline">Branch - Room 12</td>
+<td class="p-4">
+<span class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">fiber_manual_record</span>
+<span class="font-label-md text-label-md">Good</span>
+</span>
+</td>
+<td class="p-4 font-body-md text-body-md font-bold text-primary">$1,150.00</td>
+<td class="p-4">
+<button class="w-8 h-8 rounded-lg neumorphic-convex flex items-center justify-center text-outline group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="p-4 font-body-md text-body-md text-on-surface">#AS-10552</td>
+<td class="p-4 font-body-md text-body-md font-semibold text-primary">Ergonomic Task Chair</td>
+<td class="p-4">
+<span class="px-3 py-1 rounded-full bg-tertiary-container/10 text-tertiary font-label-sm text-label-sm">Office Furniture</span>
+</td>
+<td class="p-4 font-body-md text-body-md text-outline">HQ - Floor 2</td>
+<td class="p-4">
+<span class="flex items-center gap-1 text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">fiber_manual_record</span>
+<span class="font-label-md text-label-md">Fair</span>
+</span>
+</td>
+<td class="p-4 font-body-md text-body-md font-bold text-primary">$450.00</td>
+<td class="p-4">
+<button class="w-8 h-8 rounded-lg neumorphic-convex flex items-center justify-center text-outline group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="p-4 font-body-md text-body-md text-on-surface">#AS-10881</td>
+<td class="p-4 font-body-md text-body-md font-semibold text-primary">Ford Transit Connect</td>
+<td class="p-4">
+<span class="px-3 py-1 rounded-full bg-secondary-container/20 text-on-secondary-container font-label-sm text-label-sm">Vehicles</span>
+</td>
+<td class="p-4 font-body-md text-body-md text-outline">Warehouse A</td>
+<td class="p-4">
+<span class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">fiber_manual_record</span>
+<span class="font-label-md text-label-md">Good</span>
+</span>
+</td>
+<td class="p-4 font-body-md text-body-md font-bold text-primary">$28,500.00</td>
+<td class="p-4">
+<button class="w-8 h-8 rounded-lg neumorphic-convex flex items-center justify-center text-outline group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="p-4 font-body-md text-body-md text-on-surface">#AS-11002</td>
+<td class="p-4 font-body-md text-body-md font-semibold text-primary">Cisco Network Switch</td>
+<td class="p-4">
+<span class="px-3 py-1 rounded-full bg-primary-container/10 text-primary font-label-sm text-label-sm">IT Hardware</span>
+</td>
+<td class="p-4 font-body-md text-body-md text-outline">Server Room 1</td>
+<td class="p-4">
+<span class="flex items-center gap-1 text-error">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">report</span>
+<span class="font-label-md text-label-md">Poor</span>
+</span>
+</td>
+<td class="p-4 font-body-md text-body-md font-bold text-primary">$3,200.00</td>
+<td class="p-4">
+<button class="w-8 h-8 rounded-lg neumorphic-convex flex items-center justify-center text-outline group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-md flex justify-between items-center bg-surface-container-low">
+<p class="font-label-md text-label-md text-outline">Showing 1-5 of 1,482 assets</p>
+<div class="flex gap-2">
+<button class="w-10 h-10 neumorphic-convex neumorphic-button rounded-lg flex items-center justify-center text-primary disabled:opacity-50">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 neumorphic-inset rounded-lg flex items-center justify-center text-primary font-bold">1</button>
+<button class="w-10 h-10 neumorphic-convex neumorphic-button rounded-lg flex items-center justify-center text-on-surface">2</button>
+<button class="w-10 h-10 neumorphic-convex neumorphic-button rounded-lg flex items-center justify-center text-on-surface">3</button>
+<button class="w-10 h-10 neumorphic-convex neumorphic-button rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer Spacer -->
+<footer class="h-12"></footer>
+</main>
+<!-- Mobile Bottom Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface h-16 flex justify-around items-center z-50 shadow-[0_-9px_16px_rgba(163,177,198,0.3)] px-4">
+<button class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary">
+<div class="w-10 h-10 neumorphic-inset rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+</div>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">category</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">build</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</nav>
+<script>
+        // Micro-interactions for buttons
+        document.querySelectorAll('.neumorphic-button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.remove('neumorphic-convex');
+                button.classList.add('neumorphic-inset');
+                button.style.transform = 'scale(0.98)';
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.add('neumorphic-convex');
+                button.classList.remove('neumorphic-inset');
+                button.style.transform = 'scale(1)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.classList.add('neumorphic-convex');
+                button.classList.remove('neumorphic-inset');
+                button.style.transform = 'scale(1)';
+            });
+        });
+
+        // Simple animation logic for chart "loading" appearance
+        window.addEventListener('DOMContentLoaded', () => {
+            const bars = document.querySelectorAll('.bg-primary, .bg-secondary, .bg-tertiary-container, .bg-error');
+            bars.forEach(bar => {
+                const targetHeight = bar.style.height;
+                bar.style.height = '0%';
+                setTimeout(() => {
+                    bar.style.transition = 'height 1s ease-out';
+                    bar.style.height = targetHeight;
+                }, 300);
+            });
+        });
+    </script>
+</body></html>

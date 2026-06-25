@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add New Asset | AssetNexus</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "primary": "#0f4361",
+                    "secondary-container": "#9bf0fd",
+                    "on-surface": "#171c21",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#7fd3e0",
+                    "on-primary-container": "#a5d2f6",
+                    "outline": "#72787e",
+                    "on-secondary-fixed-variant": "#004f57",
+                    "inverse-primary": "#9fccf0",
+                    "secondary-fixed": "#9bf0fd",
+                    "background": "#f6f9ff",
+                    "tertiary-fixed-dim": "#f1bd7e",
+                    "surface-container-high": "#e4e9f0",
+                    "on-background": "#171c21",
+                    "secondary": "#006973",
+                    "primary-fixed": "#cae6ff",
+                    "on-surface-variant": "#41474d",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#dee3ea",
+                    "surface-container-highest": "#dee3ea",
+                    "outline-variant": "#c1c7ce",
+                    "surface-dim": "#d5dae1",
+                    "on-secondary-container": "#006f7a",
+                    "surface-container-low": "#eff4fb",
+                    "inverse-on-surface": "#ecf1f8",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#633f0a",
+                    "surface-bright": "#f6f9ff",
+                    "inverse-surface": "#2b3136",
+                    "surface": "#f6f9ff",
+                    "tertiary-container": "#754f1a",
+                    "on-secondary-fixed": "#001f23",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-primary-fixed-variant": "#194b69",
+                    "on-primary-fixed": "#001e2f",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed-dim": "#9fccf0",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#f8c383",
+                    "surface-container": "#e9eef5",
+                    "tertiary-fixed": "#ffddb7",
+                    "surface-tint": "#356382",
+                    "primary-container": "#2d5b7a",
+                    "tertiary": "#5a3803"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "40px",
+                    "base": "8px",
+                    "md": "24px",
+                    "margin-mobile": "16px",
+                    "xl": "64px",
+                    "gutter": "24px",
+                    "sm": "12px",
+                    "xs": "4px",
+                    "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f6f9ff;
+            color: #171c21;
+        }
+
+        .neumorphic-extruded {
+            background: #f6f9ff;
+            box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 1);
+        }
+
+        .neumorphic-inset {
+            background: #f6f9ff;
+            box-shadow: inset 4px 4px 6px rgba(163, 177, 198, 0.4), inset -4px -4px 6px rgba(255, 255, 255, 1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .neumorphic-inset:focus {
+            box-shadow: inset 5px 5px 8px rgba(163, 177, 198, 0.5), inset -5px -5px 8px rgba(255, 255, 255, 1);
+            outline: none;
+            border-color: rgba(15, 67, 97, 0.3);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        /* Custom Scrollbar for side nav */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md min-h-screen">
+<!-- Sidebar Navigation (SideNavBar) -->
+<aside class="hidden md:flex h-screen w-72 flex-col fixed left-0 top-0 z-40 bg-surface dark:bg-surface-container-low shadow-[9px_0px_16px_rgba(163,177,198,0.3)] dark:shadow-none p-md gap-base">
+<div class="mb-lg flex items-center gap-sm">
+<div class="w-10 h-10 rounded-xl neumorphic-extruded flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-primary">AssetNexus</h2>
+<p class="font-label-md text-label-md text-on-surface-variant opacity-70">Enterprise Admin</p>
+</div>
+</div>
+<nav class="flex-grow flex flex-col gap-base">
+<a class="flex items-center gap-base p-base rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">database</span>
+<span class="font-label-md text-label-md">Data Master</span>
+</a>
+<a class="flex items-center gap-base p-base rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">swap_horiz</span>
+<span class="font-label-md text-label-md">Transactions</span>
+</a>
+<a class="flex items-center gap-base p-base rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Monitoring</span>
+</a>
+<div class="mt-lg px-base">
+<button class="w-full py-sm rounded-xl neumorphic-extruded text-primary font-label-md text-label-md font-bold active:scale-95 transition-transform">
+                    Add New Asset
+                </button>
+</div>
+</nav>
+<div class="mt-auto flex flex-col gap-base border-t border-surface-container pt-md">
+<a class="flex items-center gap-base p-base rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</a>
+<a class="flex items-center gap-base p-base rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-72 flex-grow transition-all duration-300 min-h-screen flex flex-col">
+<!-- Top Navigation Bar (TopNavBar) -->
+<header class="docked full-width top-0 sticky z-50 bg-surface dark:bg-surface-container shadow-[9px_9px_16px_rgba(163,177,198,0.6)] dark:shadow-none flex justify-between items-center px-margin-desktop h-20 w-full">
+<div class="flex items-center gap-md">
+<div class="relative group">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline-variant">search</span>
+<input class="neumorphic-inset w-64 pl-10 pr-4 py-2 rounded-full border-none font-label-md text-label-md focus:ring-0" placeholder="Global search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="w-10 h-10 rounded-full neumorphic-extruded flex items-center justify-center text-on-surface-variant hover:scale-[1.02] transition-transform active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full neumorphic-extruded flex items-center justify-center text-on-surface-variant hover:scale-[1.02] transition-transform active:scale-95">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="flex items-center gap-sm ml-sm cursor-pointer group">
+<div class="w-10 h-10 rounded-full border-2 border-surface-container-highest overflow-hidden">
+<img alt="Administrator Profile" class="w-full h-full object-cover" data-alt="A close-up professional headshot of a middle-aged male administrator with a calm and confident expression. He is wearing a clean charcoal suit against a softly blurred minimalist office background with cold blue accent lighting. The overall aesthetic is professional, sharp, and highly organized, matching an enterprise environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOP5ioIQJpInafyaX2mprfGut2WMD8tEvKPQVq3EMTWssTqGyx5P_aAZViFO3348iaw-E-qgPncZcjL8h8ENlb2yf4IWwsnLwjLbOOfGipo4_wJUhxRVhKKZYpjvkSQRYg6YdkWbcwqso0dJcf3ShpLgRDsE6yKnrpIKY8eOZ7eGQ2OQC01p8JkRh7uZv9cPCMje9XCe1G9J6nnL1xfeZaSuFC-5ookL4U54sHh9WB7V6NjYMAb2nRFbfJN5eeWseXGj_ItjMcZI3I"/>
+</div>
+<div class="hidden lg:block">
+<p class="font-label-md text-label-md font-bold text-primary group-hover:text-primary-container transition-colors">Admin User</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">System Owner</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-margin-mobile md:p-margin-desktop max-w-6xl mx-auto w-full flex-grow">
+<!-- Page Header -->
+<div class="mb-xl">
+<div class="flex items-center gap-sm mb-xs">
+<a class="text-primary hover:underline font-label-sm text-label-sm" href="#">Dashboard</a>
+<span class="material-symbols-outlined text-[14px] text-outline-variant">chevron_right</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Add New Asset</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary">Add New Asset</h1>
+<p class="text-on-surface-variant mt-xs">Register a new physical or digital asset into the enterprise inventory.</p>
+</div>
+<!-- Success Notification (Hidden by default) -->
+<div class="hidden mb-md p-md rounded-xl bg-green-50 border border-green-200 flex items-center gap-md animate-bounce" id="success-notification">
+<div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div>
+<h4 class="font-bold text-green-800">Asset Saved Successfully</h4>
+<p class="text-green-700 text-sm">Asset code AN-2023-0881 has been added to the master registry.</p>
+</div>
+</div>
+<!-- Form Container -->
+<form class="neumorphic-extruded rounded-xl p-md md:p-lg" id="asset-form">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Left Column -->
+<div class="flex flex-col gap-md">
+<h3 class="font-label-md text-label-md font-bold text-primary uppercase tracking-widest border-b border-surface-container pb-xs mb-sm">Basic Information</h3>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Asset Code <span class="text-error">*</span></label>
+<input class="neumorphic-inset rounded-lg py-3 px-4 border-none font-body-md text-body-md w-full" placeholder="e.g. AN-2023-XXXX" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Asset Name <span class="text-error">*</span></label>
+<input class="neumorphic-inset rounded-lg py-3 px-4 border-none font-body-md text-body-md w-full" placeholder="Full descriptive name" required="" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Category</label>
+<select class="neumorphic-inset rounded-lg py-3 px-4 border-none font-body-md text-body-md w-full appearance-none bg-no-repeat bg-[right_1rem_center]" style="background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 fill=%22none%22 viewBox=%220%22 stroke=%22%2372787e%22%3E%3Cpath stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22 d=%22m19 9-7 7-7-7%22%2F%3E%3C%2Fsvg%3E'); background-size: 1.5em;">
+<option>IT Hardware</option>
+<option>Office Furniture</option>
+<option>Manufacturing</option>
+<option>Vehicles</option>
+</select>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Location</label>
+<select class="neumorphic-inset rounded-lg py-3 px-4 border-none font-body-md text-body-md w-full appearance-none bg-no-repeat bg-[right_1rem_center]" style="background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 fill=%22none%22 viewBox=%220%22 stroke=%22%2372787e%22%3E%3Cpath stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22 d=%22m19 9-7 7-7-7%22%2F%3E%3C%2Fsvg%3E'); background-size: 1.5em;">
+<option>Headquarters</option>
+<option>Regional Hub A</option>
+<option>Regional Hub B</option>
+<option>Remote</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Supplier</label>
+<select class="neumorphic-inset rounded-lg py-3 px-4 border-none font-body-md text-body-md w-full appearance-none bg-no-repeat bg-[right_1rem_center]" style="background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 fill=%22none%22 viewBox=%220%22 stroke=%22%2372787e%22%3E%3Cpath stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22 d=%22m19 9-7 7-7-7%22%2F%3E%3C%2Fsvg%3E'); background-size: 1.5em;">
+<option>TechNova Corp</option>
+<option>Global Logistics Ltd</option>
+<option>Standard Office Supplies</option>
+<option>Other</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Purchase Date</label>
+<input class="neumorphic-inset rounded-lg py-3 px-4 border-none font-body-md text-body-md w-full" type="date"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Value ($)</label>
+<input class="neumorphic-inset rounded-lg py-3 px-4 border-none font-body-md text-body-md w-full" placeholder="0.00" type="number"/>
+</div>
+</div>
+</div>
+<!-- Right Column -->
+<div class="flex flex-col gap-md">
+<h3 class="font-label-md text-label-md font-bold text-primary uppercase tracking-widest border-b border-surface-container pb-xs mb-sm">Details & Media</h3>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Asset Condition</label>
+<div class="flex flex-wrap gap-base">
+<label class="flex-1 cursor-pointer group">
+<input checked="" class="hidden peer" name="condition" type="radio"/>
+<div class="neumorphic-extruded peer-checked:neumorphic-inset p-3 rounded-lg text-center transition-all group-active:scale-95">
+<span class="font-label-md text-label-md">Excellent</span>
+</div>
+</label>
+<label class="flex-1 cursor-pointer group">
+<input class="hidden peer" name="condition" type="radio"/>
+<div class="neumorphic-extruded peer-checked:neumorphic-inset p-3 rounded-lg text-center transition-all group-active:scale-95">
+<span class="font-label-md text-label-md">Good</span>
+</div>
+</label>
+<label class="flex-1 cursor-pointer group">
+<input class="hidden peer" name="condition" type="radio"/>
+<div class="neumorphic-extruded peer-checked:neumorphic-inset p-3 rounded-lg text-center transition-all group-active:scale-95">
+<span class="font-label-md text-label-md">Fair</span>
+</div>
+</label>
+<label class="flex-1 cursor-pointer group">
+<input class="hidden peer" name="condition" type="radio"/>
+<div class="neumorphic-extruded peer-checked:neumorphic-inset p-3 rounded-lg text-center transition-all group-active:scale-95">
+<span class="font-label-md text-label-md">Poor</span>
+</div>
+</label>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Status</label>
+<div class="flex gap-base">
+<label class="flex-1 cursor-pointer group">
+<input checked="" class="hidden peer" name="status" type="radio"/>
+<div class="neumorphic-extruded peer-checked:neumorphic-inset p-3 rounded-lg text-center transition-all group-active:scale-95">
+<span class="font-label-md text-label-md">Active</span>
+</div>
+</label>
+<label class="flex-1 cursor-pointer group">
+<input class="hidden peer" name="status" type="radio"/>
+<div class="neumorphic-extruded peer-checked:neumorphic-inset p-3 rounded-lg text-center transition-all group-active:scale-95">
+<span class="font-label-md text-label-md">In Storage</span>
+</div>
+</label>
+<label class="flex-1 cursor-pointer group">
+<input class="hidden peer" name="status" type="radio"/>
+<div class="neumorphic-extruded peer-checked:neumorphic-inset p-3 rounded-lg text-center transition-all group-active:scale-95">
+<span class="font-label-md text-label-md">Maintenance</span>
+</div>
+</label>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Description</label>
+<textarea class="neumorphic-inset rounded-lg py-3 px-4 border-none font-body-md text-body-md w-full resize-none" placeholder="Additional notes, technical specs, or warranty info..." rows="3"></textarea>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Asset Image</label>
+<div class="neumorphic-inset rounded-xl p-xl flex flex-col items-center justify-center border-2 border-dashed border-outline-variant hover:border-primary transition-colors cursor-pointer group relative overflow-hidden" id="dropzone">
+<div class="flex flex-col items-center gap-base group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-4xl text-outline-variant group-hover:text-primary">upload_file</span>
+<p class="font-label-md text-label-md text-on-surface-variant text-center">Drag & drop asset photo here or <span class="text-primary font-bold">browse</span></p>
+<p class="text-[10px] text-outline uppercase tracking-wider">PNG, JPG up to 10MB</p>
+</div>
+<div class="hidden absolute inset-0 bg-surface flex items-center justify-center" id="preview-container">
+<img alt="Asset Preview" class="max-h-full max-w-full object-contain" id="image-preview" src=""/>
+<button class="absolute top-2 right-2 w-8 h-8 rounded-full bg-error text-white flex items-center justify-center" id="remove-image" type="button">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+<input accept="image/*" class="hidden" id="file-input" type="file"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Form Actions -->
+<div class="mt-xl flex flex-col sm:flex-row items-center justify-between gap-md border-t border-surface-container pt-lg">
+<div>
+<button class="text-on-surface-variant font-label-md text-label-md px-md py-2 rounded-lg hover:text-error transition-colors flex items-center gap-xs" type="reset">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+                            Reset Form
+                        </button>
+</div>
+<div class="flex items-center gap-md w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-xl py-3 text-on-surface-variant font-label-md text-label-md hover:underline decoration-2 underline-offset-4" type="button">
+                            Cancel
+                        </button>
+<button class="flex-1 sm:flex-none neumorphic-extruded bg-primary text-white px-xl py-3 rounded-xl font-bold font-label-md text-label-md active:scale-95 active:shadow-inner transition-all hover:translate-y-[-1px]" type="submit">
+                            Save Asset
+                        </button>
+</div>
+</div>
+</form>
+<!-- Information Help Card -->
+<div class="mt-lg grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="p-md rounded-xl neumorphic-extruded flex gap-base items-start">
+<span class="material-symbols-outlined text-primary">info</span>
+<div>
+<h5 class="font-bold text-sm">Automated Labeling</h5>
+<p class="text-xs text-on-surface-variant">Asset codes are automatically generated if left blank.</p>
+</div>
+</div>
+<div class="p-md rounded-xl neumorphic-extruded flex gap-base items-start">
+<span class="material-symbols-outlined text-primary">shield</span>
+<div>
+<h5 class="font-bold text-sm">Inventory Lock</h5>
+<p class="text-xs text-on-surface-variant">Once saved, high-value assets require auditor approval.</p>
+</div>
+</div>
+<div class="p-md rounded-xl neumorphic-extruded flex gap-base items-start">
+<span class="material-symbols-outlined text-primary">cloud_sync</span>
+<div>
+<h5 class="font-bold text-sm">Real-time Sync</h5>
+<p class="text-xs text-on-surface-variant">Data will be immediately visible to all warehouse nodes.</p>
+</div>
+</div>
+</div>
+</div>
+<footer class="mt-auto p-margin-desktop text-center">
+<p class="text-on-surface-variant opacity-40 text-[12px]">© 2023 AssetNexus Enterprise Solution • Version 4.1.2-stable</p>
+</footer>
+</main>
+<!-- Interactive Scripts -->
+<script>
+        // Mock image upload preview
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('file-input');
+        const previewContainer = document.getElementById('preview-container');
+        const imagePreview = document.getElementById('image-preview');
+        const removeImage = document.getElementById('remove-image');
+
+        dropzone.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    imagePreview.src = event.target.result;
+                    previewContainer.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        removeImage.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fileInput.value = '';
+            previewContainer.classList.add('hidden');
+            imagePreview.src = '';
+        });
+
+        // Drag and drop visual feedback
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropzone.classList.add('border-primary');
+                dropzone.classList.add('bg-primary-container/10');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropzone.classList.remove('border-primary');
+                dropzone.classList.remove('bg-primary-container/10');
+            }, false);
+        });
+
+        // Form Submission Mock
+        const form = document.getElementById('asset-form');
+        const successNotify = document.getElementById('success-notification');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Scroll to top to show notification
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Show notification
+            successNotify.classList.remove('hidden');
+            
+            // Disable submit button for a bit
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Saving...';
+            
+            setTimeout(() => {
+                successNotify.classList.add('hidden');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Save Asset';
+                form.reset();
+                previewContainer.classList.add('hidden');
+            }, 5000);
+        });
+
+        // Side nav interaction
+        const navLinks = document.querySelectorAll('aside nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                navLinks.forEach(l => l.classList.remove('bg-surface-container-low', 'text-primary', 'border-r-4', 'border-primary'));
+                link.classList.add('bg-surface-container-low', 'text-primary', 'border-r-4', 'border-primary');
+            });
+        });
+    </script>
+</body></html>
